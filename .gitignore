@@ -27,3 +27,6 @@ data/processed/*
 
 # Scratch folder for the weekly workflow's generated survey batch
 batch/
+
+# Local development notes
+CLAUDE.md
