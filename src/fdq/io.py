@@ -5,6 +5,8 @@ All file access lives here so the rest of the package can stay pure.
 
 from pathlib import Path
 
+import folium
+
 import geopandas as gpd
 import pandas as pd
 
@@ -120,3 +122,14 @@ def write_text(text: str, path: Path) -> None:
     """
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding="utf-8")
+
+
+def write_map(fmap: folium.Map, path: Path) -> None:
+    """Save a folium map as a standalone HTML page.
+
+    Args:
+        fmap: The map.
+        path: Output HTML path.
+    """
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fmap.save(str(path))

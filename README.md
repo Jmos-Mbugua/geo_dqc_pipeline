@@ -9,11 +9,13 @@ python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 pip install -e .
-python -m fdq.run      # writes outputs/issues.csv and outputs/summary.md
+python -m fdq.run      # writes outputs/issues.csv, outputs/summary.md and docs/index.html
 pytest                 # run the tests
 ```
 
 The pipeline runs nine checks: required fields, duplicate registrations, future dates, invalid GPS, GPS outside the registered county, invalid polygons, implausible farm area, registration point far from its farm, and overlapping farms. See [outputs/summary.md](outputs/summary.md) for the latest results, including how well the checks catch the planted errors. Thresholds are in [src/fdq/config.py](src/fdq/config.py).
+
+**Review map:** open [docs/index.html](docs/index.html) in a browser (or publish the `docs/` folder with GitHub Pages). Farms are coloured green (clean), orange (warnings only) or red (at least one error); click one to see its county, crop, area and issues. Popups never show names, national IDs or phone numbers.
 
 ## Data
 

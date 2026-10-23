@@ -18,6 +18,7 @@ from fdq.boundaries import COUNTY_NAME_COLUMN
 from fdq.checks import CHECK_IDS, ERROR, WARNING, is_blank, run_all_checks
 from fdq.evaluate import evaluate, missed_errors, possible_false_alarms
 from fdq.geo import WGS84
+from fdq.map import build_map
 from fdq.schema import SURVEY_COLUMNS
 
 logger = logging.getLogger(__name__)
@@ -42,15 +43,19 @@ class PipelinePaths:
     counties: Path
     truth: Path | None
     out_dir: Path
+    map_file: Path | None = None
 
     @classmethod
-    def from_dirs(cls, raw_dir: Path, out_dir: Path, truth: Path | None = None) -> "PipelinePaths":
+    def from_dirs(
+        cls, raw_dir: Path, out_dir: Path, truth: Path | None = None, map_file: Path | None = None
+    ) -> "PipelinePaths":
         """Use the standard file names inside raw_dir.
 
         Args:
             raw_dir: Folder with the input files.
             out_dir: Folder for issues.csv and summary.md.
             truth: Ground-truth file; defaults to raw_dir/planted_errors.csv.
+            map_file: Where to write the HTML map; None skips the map.
 
         Returns:
             The paths.
@@ -61,6 +66,7 @@ class PipelinePaths:
             counties=raw_dir / "kenya_counties.geojson",
             truth=truth if truth is not None else raw_dir / "planted_errors.csv",
             out_dir=out_dir,
+            map_file=map_file,
         )
 
 
@@ -382,7 +388,7 @@ def _evaluation_section(issues: pd.DataFrame, truth: pd.DataFrame) -> list[str]:
 
 
 def run_pipeline(paths: PipelinePaths) -> PipelineResult:
-    """Run the whole pipeline: load, validate, check, report, evaluate.
+    """Run the whole pipeline: load, validate, check, report, evaluate, map.
 
     Args:
         paths: Input and output locations.
@@ -393,10 +399,10 @@ def run_pipeline(paths: PipelinePaths) -> PipelineResult:
     Raises:
         InputError: If input files are missing or the schema is wrong.
     """
-    logger.info("Step 1/5: checking input files exist")
+    logger.info("Step 1/6: checking input files exist")
     check_inputs_exist(paths)
 
-    logger.info("Step 2/5: loading data")
+    logger.info("Step 2/6: loading data")
     registrations = io.read_registrations(paths.registrations)
     farms = io.read_farm_boundaries(paths.farms)
     counties = io.read_counties(paths.counties)
@@ -404,7 +410,7 @@ def run_pipeline(paths: PipelinePaths) -> PipelineResult:
         "Loaded %d registrations, %d farm boundaries, %d counties", len(registrations), len(farms), len(counties)
     )
 
-    logger.info("Step 3/5: validating input schema")
+    logger.info("Step 3/6: validating input schema")
     validate_schema(registrations, farms, counties)
     no_farm, no_registration = unmatched_records(registrations, farms)
     if no_farm:
@@ -412,11 +418,11 @@ def run_pipeline(paths: PipelinePaths) -> PipelineResult:
     if no_registration:
         logger.warning("%d farm boundary(ies) have no registration", len(no_registration))
 
-    logger.info("Step 4/5: running %d checks", len(CHECK_IDS))
+    logger.info("Step 4/6: running %d checks", len(CHECK_IDS))
     issues = build_issues(run_all_checks(registrations, farms, counties), registrations)
     logger.info("Found %d issues on %d records", len(issues), issues["farmer_id"].nunique())
 
-    logger.info("Step 5/5: writing outputs")
+    logger.info("Step 5/6: writing issues and summary")
     truth = None
     evaluation = None
     if paths.truth is not None and paths.truth.is_file():
@@ -435,4 +441,11 @@ def run_pipeline(paths: PipelinePaths) -> PipelineResult:
     io.write_issues(issues, paths.out_dir / "issues.csv")
     io.write_text(summary, paths.out_dir / "summary.md")
     logger.info("Wrote %s and %s", paths.out_dir / "issues.csv", paths.out_dir / "summary.md")
+
+    if paths.map_file is not None:
+        logger.info("Step 6/6: building map")
+        io.write_map(build_map(registrations, farms, counties, issues), paths.map_file)
+        logger.info("Wrote %s (%.0f KB)", paths.map_file, paths.map_file.stat().st_size / 1024)
+    else:
+        logger.info("Step 6/6: map skipped")
     return PipelineResult(issues=issues, summary=summary, evaluation=evaluation)

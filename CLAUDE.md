@@ -10,13 +10,14 @@ A data quality pipeline for agricultural field survey data collected through ODK
 - `src/fdq/run.py`: the pipeline's entry point (`python -m fdq.run`); `pipeline.py` holds the steps, `checks.py` the checks, `evaluate.py` the scoring against planted errors.
 - `data/raw/`: input data, tracked in git. **Synthetic or anonymised only.** Never commit real farmer names, phone numbers, ID numbers or exact locations.
 - `data/processed/`: pipeline outputs, git-ignored and always regenerable.
-- `outputs/`: pipeline results: `issues.csv` (one row per issue) and `summary.md`; maps later. Tracked in git so the README can show them.
-- `docs/`: notes and design decisions.
+- `outputs/`: pipeline results: `issues.csv` (one row per issue) and `summary.md`. Tracked in git so the README can show them.
+- `docs/`: `index.html` is the interactive review map built by `fdq.map` (servable with GitHub Pages); also notes and design decisions.
 
 ## Data
 - `data/raw/farmer_registrations.csv`, `farm_boundaries.geojson` and `planted_errors.csv` are **simulated** by `scripts/generate_survey.py` (seed 42), using `fdq.synthetic`. Regenerating with the same seed gives byte-identical files.
 - `planted_errors.csv` is the ground truth for scoring the checks. Never let the checks read it; only `fdq.evaluate` does, and the pipeline skips evaluation when the file is absent (as it will be for real data). New planted error types need an entry in `evaluate.INTENDED_CHECK`.
 - Read registrations with `fdq.io.read_registrations` so IDs and phone numbers stay text (leading zeros).
+- **Map privacy:** popups may show only farmer_id, county, crop, area and issues. Never names, national IDs or phone numbers; `map.redact_message` strips identifiers from issue messages, and `tests/test_map.py` scans the HTML for leaks. HTML-escape every value (folium renders popup content as raw HTML).
 - Shared constants: required fields are in `fdq.schema`. All check thresholds, plus the survey `EXPORT_DATE`, are in `fdq.config`. Never hard-code a threshold in a check.
 
 ## Setup and commands

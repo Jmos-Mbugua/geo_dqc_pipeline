@@ -95,7 +95,8 @@ def raw_dir(tmp_path: Path) -> Path:
 
 def test_pipeline_end_to_end(raw_dir: Path, tmp_path: Path):
     out = tmp_path / "out"
-    result = run_pipeline(PipelinePaths.from_dirs(raw_dir, out))
+    map_file = tmp_path / "docs" / "index.html"
+    result = run_pipeline(PipelinePaths.from_dirs(raw_dir, out, map_file=map_file))
 
     # issues.csv: one row per issue, with county and enumerator for review.
     issues = pd.read_csv(out / "issues.csv", dtype=str, encoding="utf-8-sig")
@@ -131,6 +132,12 @@ def test_pipeline_end_to_end(raw_dir: Path, tmp_path: Path):
     assert "### Missed planted errors\n\n- F2: future_registration_date" in summary
     assert "### Possible false alarms\n\n- F5: farm_area_implausible" in summary
 
+    # The map: written, labelled as simulated, every farm present, no personal data.
+    page = map_file.read_text(encoding="utf-8")
+    assert "Simulated data" in page
+    assert all(f'"farmer_id": "F{i}"' in page for i in range(1, 6))
+    assert "Grace Wanjiru" not in page and "20000001" not in page
+
 
 def test_pipeline_without_ground_truth(raw_dir: Path, tmp_path: Path):
     (raw_dir / "planted_errors.csv").unlink()
@@ -141,7 +148,7 @@ def test_pipeline_without_ground_truth(raw_dir: Path, tmp_path: Path):
 
 def test_cli_success_logs_each_check(raw_dir: Path, tmp_path: Path, caplog):
     with caplog.at_level(logging.INFO):
-        code = run.main(["--raw-dir", str(raw_dir), "--out-dir", str(tmp_path / "out")])
+        code = run.main(["--raw-dir", str(raw_dir), "--out-dir", str(tmp_path / "out"), "--no-map"])
     assert code == run.EXIT_OK
     assert "Check gps_outside_county" in caplog.text
     assert "flagged 1 record(s)" in caplog.text
