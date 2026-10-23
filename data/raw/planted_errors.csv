@@ -1,0 +1,59 @@
+farmer_id,error_type,related_farmer_id,details
+FRM-00025,gps_outside_county,,"registered in Nakuru, GPS in Meru"
+FRM-00059,gps_outside_county,,"registered in Meru, GPS in Nakuru"
+FRM-00068,area_too_small,,24 m2
+FRM-00085,gps_outside_county,,"registered in Nakuru, GPS in Meru"
+FRM-00087,farm_overlap,FRM-00371,81% of the smaller farm covered
+FRM-00089,missing_required_field,,crop blank
+FRM-00093,gps_outside_county,,"registered in Kakamega, GPS in Nakuru"
+FRM-00095,gps_latlon_swapped,,"true position lat 0.2664422, lon 34.693546"
+FRM-00119,gps_outside_county,,"registered in Uasin Gishu, GPS in Nakuru"
+FRM-00134,duplicate_registration,FRM-00111,"name 'David Kamau' -> 'Kamau David'; farm re-walked, so it also overlaps the original"
+FRM-00136,gps_null_island,,"GPS saved as 0,0 (no fix)"
+FRM-00140,area_too_large,,262 acres
+FRM-00145,duplicate_registration,FRM-00242,"name 'Grace Mbaabu' -> 'Mbaabu Grace'; farm re-walked, so it also overlaps the original"
+FRM-00161,future_registration_date,,2026-03-02 -> 2027-06-16 (device clock wrong)
+FRM-00170,missing_required_field,,county blank
+FRM-00175,polygon_self_intersecting,,two vertices out of order
+FRM-00176,gps_outside_county,,"registered in Bungoma, GPS in Uasin Gishu"
+FRM-00181,polygon_self_intersecting,,two vertices out of order
+FRM-00182,future_registration_date,,2026-03-06 -> 2062-03-06 (year digits transposed)
+FRM-00193,polygon_self_intersecting,,two vertices out of order
+FRM-00195,gps_latlon_swapped,,"true position lat 0.6317233, lon 38.0012198"
+FRM-00200,future_registration_date,,2026-03-11 -> 2062-03-11 (year digits transposed)
+FRM-00206,missing_required_field,,latitude/longitude blank
+FRM-00215,area_too_large,,417 acres
+FRM-00226,polygon_self_intersecting,,two vertices out of order
+FRM-00230,duplicate_registration,FRM-00212,"name 'Grace Wafula' -> 'Grace Wafua'; farm re-walked, so it also overlaps the original"
+FRM-00236,area_too_small,,17 m2
+FRM-00237,gps_null_island,,"GPS saved as 0,0 (no fix)"
+FRM-00284,area_too_large,,272 acres
+FRM-00295,farm_overlap,FRM-00536,88% of the smaller farm covered
+FRM-00299,future_registration_date,,2026-04-01 -> 2062-04-01 (year digits transposed)
+FRM-00301,farm_overlap,FRM-00482,83% of the smaller farm covered
+FRM-00314,area_too_small,,29 m2
+FRM-00315,polygon_self_intersecting,,two vertices out of order
+FRM-00349,missing_required_field,,farmer_name blank
+FRM-00350,gps_null_island,,"GPS saved as 0,0 (no fix)"
+FRM-00353,duplicate_registration,FRM-00125,"name 'Rose Barasa' -> 'Rsoe Barasa'; farm re-walked, so it also overlaps the original"
+FRM-00357,future_registration_date,,2026-04-13 -> 2027-09-27 (device clock wrong)
+FRM-00366,area_too_large,,484 acres
+FRM-00371,farm_overlap,FRM-00087,81% of the smaller farm covered
+FRM-00395,missing_required_field,,registration_date blank
+FRM-00411,missing_required_field,,national_id blank
+FRM-00422,farm_overlap,FRM-00577,77% of the smaller farm covered
+FRM-00423,duplicate_registration,FRM-00310,"name 'Paul Rotich' -> 'Paul Rtich'; farm re-walked, so it also overlaps the original"
+FRM-00438,gps_latlon_swapped,,"true position lat -0.7522113, lon 36.2940919"
+FRM-00439,gps_latlon_swapped,,"true position lat 0.4815019, lon 35.3677721"
+FRM-00459,missing_required_field,,enumerator_id blank
+FRM-00481,gps_outside_county,,"registered in Bungoma, GPS in Meru"
+FRM-00482,farm_overlap,FRM-00301,83% of the smaller farm covered
+FRM-00487,gps_outside_county,,"registered in Uasin Gishu, GPS in Kakamega"
+FRM-00492,missing_required_field,,phone blank
+FRM-00498,area_too_small,,25 m2
+FRM-00531,polygon_self_intersecting,,two vertices out of order
+FRM-00536,farm_overlap,FRM-00295,88% of the smaller farm covered
+FRM-00538,gps_null_island,,"GPS saved as 0,0 (no fix)"
+FRM-00561,duplicate_registration,FRM-00277,"name 'Lucy Mwiti' -> 'Lcuy Mwiti'; farm re-walked, so it also overlaps the original"
+FRM-00564,polygon_self_intersecting,,two vertices out of order
+FRM-00577,farm_overlap,FRM-00422,77% of the smaller farm covered

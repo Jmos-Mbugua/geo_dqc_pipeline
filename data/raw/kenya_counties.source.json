@@ -1,0 +1,11 @@
+{
+  "boundaryName": "Kenya",
+  "boundaryType": "ADM1",
+  "boundaryYearRepresented": "2020",
+  "boundarySource": "RCMRD GeoPortal, Africa GeoPortal",
+  "boundaryLicense": "Public Domain",
+  "admUnitCount": "47",
+  "sourceDataUpdateDate": "Thu Jan 19 07:31:04 2023",
+  "downloadURL": "https://github.com/wmgeolab/geoBoundaries/raw/9469f09/releaseData/gbOpen/KEN/ADM1/geoBoundaries-KEN-ADM1.geojson",
+  "downloadedOn": "2026-10-23"
+}
