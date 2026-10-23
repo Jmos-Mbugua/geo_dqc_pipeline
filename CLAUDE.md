@@ -1,7 +1,7 @@
 # field-data-quality-kenya
 
 ## Goal
-A data quality pipeline for agricultural field survey data collected through ODK, such as farmer registrations with GPS points and farm boundary polygons, as an agri-insurance company in Kenya would collect. The pipeline flags bad records (missing or duplicate data, out-of-bounds GPS, invalid polygons, implausible areas, overlaps) and produces clean data, a report and a review map. This is a portfolio and learning project: favour clear, well-explained code over clever code.
+A data quality pipeline for agricultural field survey data collected through ODK, such as farmer registrations with GPS points and farm boundary polygons, as an agri-insurance company in Kenya would collect. The pipeline flags bad records (missing or duplicate data, out-of-bounds GPS, invalid polygons, implausible areas, overlaps) and produces an issues list, a summary report and a review map (it does not write a cleaned dataset). This is a portfolio and learning project: favour clear, well-explained code over clever code.
 
 ## Folder structure
 - `src/fdq/`: the Python package. All pipeline logic lives here.
@@ -12,7 +12,7 @@ A data quality pipeline for agricultural field survey data collected through ODK
 - `data/processed/`: pipeline outputs, git-ignored and always regenerable.
 - `outputs/`: pipeline results: `issues.csv` (one row per issue) and `summary.md`. Tracked in git so the README can show them.
 - `.github/workflows/`: `tests.yml` (pytest on every push/PR) and `scheduled_run.yml` (weekly batch: generate into `batch/`, run the pipeline, upload an artifact, commit `docs/index.html` and `outputs/`). The bot commits to `main`, so `git pull` before pushing.
-- `docs/`: `index.html` is the interactive review map built by `fdq.map` (servable with GitHub Pages); also notes and design decisions.
+- `docs/`: `index.html` is the interactive review map built by `fdq.map` (served by GitHub Pages); `data_dictionary.md` documents every column and its validation rule. **Update the data dictionary and the README checks table whenever a check or threshold changes.**
 
 ## Data
 - `data/raw/farmer_registrations.csv`, `farm_boundaries.geojson` and `planted_errors.csv` are **simulated** by `scripts/generate_survey.py` (seed 42), using `fdq.synthetic`. Regenerating with the same seed gives byte-identical files.
