@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "field-data-quality-kenya"
+version = "0.1.0"
+description = "Data quality pipeline for agricultural field survey data (ODK farmer registrations, GPS points, farm polygons)."
+readme = "README.md"
+license = "MIT"
+authors = [{ name = "John Mbugua" }]
+requires-python = ">=3.11"
+dependencies = [
+    "pandas",
+    "geopandas",
+    "shapely",
+    "pyproj",
+    "folium",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
