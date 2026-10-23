@@ -6,15 +6,16 @@ A data quality pipeline for agricultural field survey data collected through ODK
 ## Folder structure
 - `src/fdq/`: the Python package. All pipeline logic lives here.
 - `tests/`: pytest tests that mirror the modules in `src/fdq/`.
-- `scripts/`: thin command-line entry points that call `fdq` functions. No logic here.
+- `scripts/`: thin command-line entry points for data preparation (download, simulate). No logic here.
+- `src/fdq/run.py`: the pipeline's entry point (`python -m fdq.run`); `pipeline.py` holds the steps, `checks.py` the checks, `evaluate.py` the scoring against planted errors.
 - `data/raw/`: input data, tracked in git. **Synthetic or anonymised only.** Never commit real farmer names, phone numbers, ID numbers or exact locations.
 - `data/processed/`: pipeline outputs, git-ignored and always regenerable.
-- `outputs/`: reports and maps (folium HTML).
+- `outputs/`: pipeline results: `issues.csv` (one row per issue) and `summary.md`; maps later. Tracked in git so the README can show them.
 - `docs/`: notes and design decisions.
 
 ## Data
 - `data/raw/farmer_registrations.csv`, `farm_boundaries.geojson` and `planted_errors.csv` are **simulated** by `scripts/generate_survey.py` (seed 42), using `fdq.synthetic`. Regenerating with the same seed gives byte-identical files.
-- `planted_errors.csv` is the ground truth for scoring the checks. Never let the checks read it.
+- `planted_errors.csv` is the ground truth for scoring the checks. Never let the checks read it; only `fdq.evaluate` does, and the pipeline skips evaluation when the file is absent (as it will be for real data). New planted error types need an entry in `evaluate.INTENDED_CHECK`.
 - Read registrations with `fdq.io.read_registrations` so IDs and phone numbers stay text (leading zeros).
 - Shared constants: required fields are in `fdq.schema`. All check thresholds, plus the survey `EXPORT_DATE`, are in `fdq.config`. Never hard-code a threshold in a check.
 
@@ -25,6 +26,7 @@ python -m venv .venv
 pip install -r requirements.txt
 pip install -e .          # makes `import fdq` work everywhere
 pytest                    # run all tests
+python -m fdq.run         # run the pipeline (from the repo root); exit code 1 = bad input
 ```
 
 ## Conventions
@@ -32,7 +34,7 @@ pytest                    # run all tests
 - **Docstrings** (Google style) on every public function: what it does, Args, Returns.
 - **Small pure functions**: take data in, return new data out. No hidden I/O, no mutating inputs, no global state. Keep file reading and writing at the edges (in `scripts/` or dedicated I/O functions).
 - **Every check gets a pytest test** with small hand-made fixtures covering a passing case, a failing case and edge cases (empty input, nulls).
-- **Use `logging`, never `print`.** Each module does `logger = logging.getLogger(__name__)`, and logging is configured only in `scripts/`.
+- **Use `logging`, never `print`.** Each module does `logger = logging.getLogger(__name__)`, and logging is configured only in entry points (`scripts/` and `fdq/run.py`).
 
 ## CRS rule (non-negotiable)
 - Data is stored and exchanged in **EPSG:4326** (WGS84 latitude/longitude), as ODK produces it.

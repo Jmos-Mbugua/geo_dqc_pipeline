@@ -83,3 +83,40 @@ def write_ground_truth(truth: pd.DataFrame, path: Path) -> None:
     """
     path.parent.mkdir(parents=True, exist_ok=True)
     truth.to_csv(path, index=False)
+
+
+def read_ground_truth(path: Path) -> pd.DataFrame:
+    """Read the planted-errors ground truth (simulated data only).
+
+    Args:
+        path: Path to planted_errors.csv.
+
+    Returns:
+        farmer_id, error_type, related_farmer_id, details, all as text.
+    """
+    return pd.read_csv(path, dtype="str")
+
+
+def write_issues(issues: pd.DataFrame, path: Path) -> None:
+    """Write the issues table to CSV, one row per issue.
+
+    Written with a UTF-8 byte-order mark so Excel shows any non-ASCII
+    characters in names and messages correctly.
+
+    Args:
+        issues: The pipeline's issues table.
+        path: Output CSV path.
+    """
+    path.parent.mkdir(parents=True, exist_ok=True)
+    issues.to_csv(path, index=False, encoding="utf-8-sig")
+
+
+def write_text(text: str, path: Path) -> None:
+    """Write a text file (e.g. the Markdown summary) as UTF-8.
+
+    Args:
+        text: File contents.
+        path: Output path.
+    """
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(text, encoding="utf-8")

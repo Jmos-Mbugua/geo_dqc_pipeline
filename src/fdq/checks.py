@@ -482,20 +482,36 @@ def run_all_checks(
         counties: County boundaries.
 
     Returns:
-        All flags, in check order.
+        All flags, in CHECK_IDS order.
     """
-    results = [
-        required_fields_missing(registrations),
-        duplicate_registration(registrations),
-        future_registration_date(registrations),
-        gps_invalid(registrations),
-        gps_outside_county(registrations, counties),
-        polygon_invalid(farms),
-        farm_area_implausible(farms),
-        farm_point_outside_polygon(registrations, farms),
-        farm_overlap(farms),
-    ]
-    flags = pd.concat(results, ignore_index=True)
-    for check_id, n in flags["check_id"].value_counts(sort=False).items():
-        logger.info("%-28s %d flags", check_id, n)
-    return flags
+    runs = {
+        "required_fields_missing": lambda: required_fields_missing(registrations),
+        "duplicate_registration": lambda: duplicate_registration(registrations),
+        "future_registration_date": lambda: future_registration_date(registrations),
+        "gps_invalid": lambda: gps_invalid(registrations),
+        "gps_outside_county": lambda: gps_outside_county(registrations, counties),
+        "polygon_invalid": lambda: polygon_invalid(farms),
+        "farm_area_implausible": lambda: farm_area_implausible(farms),
+        "farm_point_outside_polygon": lambda: farm_point_outside_polygon(registrations, farms),
+        "farm_overlap": lambda: farm_overlap(farms),
+    }
+    results = []
+    for check_id, run in runs.items():
+        flags = run()
+        logger.info("Check %-27s flagged %d record(s)", check_id, flags["farmer_id"].nunique())
+        results.append(flags)
+    return pd.concat(results, ignore_index=True)
+
+
+# Every check, in the order run_all_checks runs them.
+CHECK_IDS: list[str] = [
+    "required_fields_missing",
+    "duplicate_registration",
+    "future_registration_date",
+    "gps_invalid",
+    "gps_outside_county",
+    "polygon_invalid",
+    "farm_area_implausible",
+    "farm_point_outside_polygon",
+    "farm_overlap",
+]
