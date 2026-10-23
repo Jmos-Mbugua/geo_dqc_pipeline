@@ -7,6 +7,8 @@ for single shapely geometries.
 
 from functools import lru_cache
 
+import geopandas as gpd
+import pandas as pd
 import pyproj
 import shapely
 from shapely.geometry.base import BaseGeometry
@@ -121,3 +123,41 @@ def overlap_fraction(a: BaseGeometry, b: BaseGeometry) -> float:
     if smaller == 0:
         return 0.0
     return a_m.intersection(b_m).area / smaller
+
+
+# --- Vectorised versions for whole GeoSeries ------------------------------
+
+
+def projected_crs_for_geoseries(geoms: gpd.GeoSeries) -> pd.Series:
+    """Pick the UTM zone for every geometry in a GeoSeries.
+
+    Uses the midpoint of each geometry's bounding box rather than its centroid:
+    it is just as good for choosing a zone and avoids geopandas' warning about
+    centroids in a geographic CRS.
+
+    Args:
+        geoms: Geometries in EPSG:4326.
+
+    Returns:
+        EPSG codes, aligned with geoms' index.
+    """
+    bounds = geoms.bounds
+    mid_longitude = (bounds["minx"] + bounds["maxx"]) / 2
+    return mid_longitude.map(projected_crs_for_longitude)
+
+
+def area_m2_series(geoms: gpd.GeoSeries) -> pd.Series:
+    """Measure every geometry's area in square metres, each in its own UTM zone.
+
+    Args:
+        geoms: Non-empty geometries with a CRS set (normally EPSG:4326).
+
+    Returns:
+        Areas in m², aligned with geoms' index.
+    """
+    zones = projected_crs_for_geoseries(geoms)
+    areas = pd.Series(float("nan"), index=geoms.index)
+    for crs in zones.unique():
+        in_zone = zones == crs
+        areas[in_zone] = geoms[in_zone].to_crs(crs).area
+    return areas

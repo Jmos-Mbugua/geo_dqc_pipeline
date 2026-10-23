@@ -60,3 +60,19 @@ def test_overlap_fraction():
     assert overlap_fraction(a, a) == pytest.approx(1.0)
     assert overlap_fraction(a, half_shifted) == pytest.approx(0.5, rel=1e-3)
     assert overlap_fraction(a, far_away) == 0.0
+
+
+def test_area_m2_series_measures_each_farm_in_its_own_zone():
+    import geopandas as gpd
+
+    from fdq.geo import area_m2_series, projected_crs_for_geoseries
+
+    squares = gpd.GeoSeries(
+        [
+            _square_in_degrees(36.07, -0.30, 100.0, "EPSG:21037"),  # Nakuru, zone 37S
+            _square_in_degrees(34.56, 0.57, 200.0, "EPSG:21036"),  # Bungoma, zone 36S
+        ],
+        crs="EPSG:4326",
+    )
+    assert projected_crs_for_geoseries(squares).tolist() == ["EPSG:21037", "EPSG:21036"]
+    assert area_m2_series(squares).tolist() == pytest.approx([10_000, 40_000], rel=1e-3)

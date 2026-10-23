@@ -16,6 +16,7 @@ from shapely import affinity
 from shapely.geometry import Point, Polygon
 from shapely.geometry.base import BaseGeometry
 
+from fdq.config import EXPORT_DATE  # noqa: F401  (re-exported for the planter and tests)
 from fdq.geo import (
     SQUARE_METRES_PER_ACRE,
     WGS84,
@@ -32,7 +33,6 @@ MIN_FARM_ACRES = 0.2
 MAX_FARM_ACRES = 5.0
 REGISTRATION_START = date(2026, 2, 2)  # long-rains registration campaign
 REGISTRATION_END = date(2026, 5, 29)
-EXPORT_DATE = date(2026, 6, 30)  # when the data was "exported" from ODK
 ENUMERATORS_PER_COUNTY = 3
 COORDINATE_DECIMALS = 7  # ~1 cm, more than any phone GPS can resolve
 MAX_RESAMPLE_ROUNDS = 20

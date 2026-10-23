@@ -16,7 +16,7 @@ A data quality pipeline for agricultural field survey data collected through ODK
 - `data/raw/farmer_registrations.csv`, `farm_boundaries.geojson` and `planted_errors.csv` are **simulated** by `scripts/generate_survey.py` (seed 42), using `fdq.synthetic`. Regenerating with the same seed gives byte-identical files.
 - `planted_errors.csv` is the ground truth for scoring the checks. Never let the checks read it.
 - Read registrations with `fdq.io.read_registrations` so IDs and phone numbers stay text (leading zeros).
-- Shared constants: required fields are in `fdq.schema`, and the survey export date (for "future date" checks) is `EXPORT_DATE` in `fdq.synthetic.generate`.
+- Shared constants: required fields are in `fdq.schema`. All check thresholds, plus the survey `EXPORT_DATE`, are in `fdq.config`. Never hard-code a threshold in a check.
 
 ## Setup and commands
 ```powershell
