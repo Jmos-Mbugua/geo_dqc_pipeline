@@ -1,0 +1,140 @@
+name: Weekly survey run
+
+# Every Monday: simulate a new survey batch, run the quality pipeline, publish
+# the results (artifact + commit of the map and summary). data/raw/ is never
+# changed; the batch is generated in a scratch folder.
+
+on:
+  schedule:
+    - cron: "0 5 * * 1" # Mondays 05:00 UTC (08:00 in Nairobi)
+  workflow_dispatch:
+    inputs:
+      seed:
+        description: "Survey seed (a whole number). Leave blank to use this ISO year and week, e.g. 202643."
+        required: false
+        default: ""
+
+# Needed to push the updated map and summary back to the repository.
+permissions:
+  contents: write
+
+# Never run two batches at once: they would race to push.
+concurrency:
+  group: scheduled-run
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out repository
+        id: checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Python (with pip cache)
+        id: python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install dependencies
+        id: install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -e .
+
+      - name: Run tests (do not publish from broken code)
+        id: tests
+        run: pytest -q
+
+      - name: Choose seed
+        id: seed
+        env:
+          INPUT_SEED: ${{ inputs.seed }} # passed via env, never pasted into the script
+        run: |
+          if [ -n "$INPUT_SEED" ]; then
+            if ! [[ "$INPUT_SEED" =~ ^[0-9]+$ ]]; then
+              echo "::error title=Invalid seed::The seed must be a whole number."
+              exit 1
+            fi
+            seed="$INPUT_SEED"
+          else
+            seed="$(date -u +%G%V)" # ISO year + week, e.g. 202643: new every week, reproducible
+          fi
+          echo "seed=$seed" >> "$GITHUB_OUTPUT"
+          echo "Using seed $seed"
+
+      - name: Generate survey batch
+        id: generate
+        env:
+          SEED: ${{ steps.seed.outputs.seed }}
+        run: |
+          mkdir -p batch
+          cp data/raw/kenya_counties.geojson batch/
+          python scripts/generate_survey.py --seed "$SEED" --out-dir batch
+
+      - name: Run pipeline
+        id: pipeline
+        env:
+          SEED: ${{ steps.seed.outputs.seed }}
+        run: |
+          python -m fdq.run --raw-dir batch \
+            --label "weekly batch, seed $SEED, run $(date -u +%Y-%m-%d)"
+          cat outputs/summary.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload outputs as artifact
+        id: upload
+        uses: actions/upload-artifact@v7
+        with:
+          name: outputs-seed-${{ steps.seed.outputs.seed }}
+          path: |
+            outputs/
+            docs/index.html
+            batch/farmer_registrations.csv
+            batch/farm_boundaries.geojson
+            batch/planted_errors.csv
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Commit updated map and summary
+        id: commit
+        env:
+          SEED: ${{ steps.seed.outputs.seed }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/index.html outputs/summary.md outputs/issues.csv
+          if git diff --cached --quiet; then
+            echo "Nothing changed; no commit needed."
+            exit 0
+          fi
+          git commit -m "Weekly run: survey batch seed $SEED"
+          # Someone may have pushed while this job ran: replay our commit on top.
+          git pull --rebase origin "$GITHUB_REF_NAME"
+          git push origin "HEAD:$GITHUB_REF_NAME"
+
+      - name: Report failure
+        if: failure()
+        run: |
+          {
+            echo "## Weekly run failed"
+            echo ""
+            echo "| Step | Result |"
+            echo "|---|---|"
+            echo "| Install dependencies | ${{ steps.install.outcome }} |"
+            echo "| Run tests | ${{ steps.tests.outcome }} |"
+            echo "| Choose seed | ${{ steps.seed.outcome }} |"
+            echo "| Generate survey batch | ${{ steps.generate.outcome }} |"
+            echo "| Run pipeline | ${{ steps.pipeline.outcome }} |"
+            echo "| Upload outputs | ${{ steps.upload.outcome }} |"
+            echo "| Commit and push | ${{ steps.commit.outcome }} |"
+            echo ""
+            echo "Open the step marked **failure** in the log above for the error."
+            echo "Nothing was committed unless the commit step succeeded."
+          } >> "$GITHUB_STEP_SUMMARY"
+          echo "::error title=Weekly survey run failed::A step failed. See the job summary for which one."
+          exit 1

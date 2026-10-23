@@ -11,6 +11,7 @@ A data quality pipeline for agricultural field survey data collected through ODK
 - `data/raw/`: input data, tracked in git. **Synthetic or anonymised only.** Never commit real farmer names, phone numbers, ID numbers or exact locations.
 - `data/processed/`: pipeline outputs, git-ignored and always regenerable.
 - `outputs/`: pipeline results: `issues.csv` (one row per issue) and `summary.md`. Tracked in git so the README can show them.
+- `.github/workflows/`: `tests.yml` (pytest on every push/PR) and `scheduled_run.yml` (weekly batch: generate into `batch/`, run the pipeline, upload an artifact, commit `docs/index.html` and `outputs/`). The bot commits to `main`, so `git pull` before pushing.
 - `docs/`: `index.html` is the interactive review map built by `fdq.map` (servable with GitHub Pages); also notes and design decisions.
 
 ## Data

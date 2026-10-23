@@ -24,3 +24,6 @@ Thumbs.db
 # Data: raw stays tracked (synthetic/anonymised only!), processed is regenerated
 data/processed/*
 !data/processed/.gitkeep
+
+# Scratch folder for the weekly workflow's generated survey batch
+batch/

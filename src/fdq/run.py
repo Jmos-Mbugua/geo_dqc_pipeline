@@ -2,7 +2,7 @@
 
 Usage (from the repository root):
     python -m fdq.run [--raw-dir data/raw] [--out-dir outputs] [--map docs/index.html]
-                      [--truth PATH] [--no-eval] [--no-map] [--verbose]
+                      [--truth PATH] [--label TEXT] [--no-eval] [--no-map] [--verbose]
 
 Exit codes: 0 on success, 1 if input files are missing or the schema is wrong.
 """
@@ -38,6 +38,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--map", type=Path, default=Path("docs/index.html"), help="map HTML (default docs/index.html)")
     parser.add_argument("--no-eval", action="store_true", help="skip evaluation against ground truth")
     parser.add_argument("--no-map", action="store_true", help="skip building the map")
+    parser.add_argument("--label", help='describe the data batch in the summary and map, e.g. "seed 202643"')
     parser.add_argument("--verbose", action="store_true", help="log debug messages too")
     return parser.parse_args(argv)
 
@@ -61,7 +62,7 @@ def main(argv: list[str] | None = None) -> int:
         paths = dataclasses.replace(paths, truth=None)
 
     try:
-        run_pipeline(paths)
+        run_pipeline(paths, label=args.label)
     except InputError as exc:
         logger.error("%s", exc)
         return EXIT_INPUT_ERROR

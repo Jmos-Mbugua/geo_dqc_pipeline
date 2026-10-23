@@ -195,13 +195,14 @@ def _style(feature: dict) -> dict:
     return {"color": colour, "weight": 2, "fillColor": colour, "fillOpacity": 0.45}
 
 
-def _title_html(counts: pd.Series) -> str:
+def _title_html(counts: pd.Series, label: str | None = None) -> str:
     total = int(counts.sum())
+    batch = f"<div>Batch: {html.escape(label)}</div>" if label else ""
     return f"""
     <div style="position:fixed;top:12px;left:60px;z-index:9999;background:white;padding:8px 12px;
                 border:1px solid #999;border-radius:4px;font:13px/1.4 sans-serif;max-width:340px;">
       <div style="font-size:15px;font-weight:bold;">Farm registration quality review</div>
-      <div>{total} farms in five Kenyan counties, coloured by data quality status. Click a farm for details.</div>
+      <div>{total} farms in five Kenyan counties, coloured by data quality status. Click a farm for details.</div>{batch}
       <div style="margin-top:4px;color:#c62828;font-weight:bold;">Simulated data: no real farmers or farms.</div>
     </div>"""
 
@@ -226,6 +227,7 @@ def build_map(
     farms: gpd.GeoDataFrame,
     counties: gpd.GeoDataFrame,
     issues: pd.DataFrame,
+    label: str | None = None,
 ) -> folium.Map:
     """Build the review map.
 
@@ -237,6 +239,7 @@ def build_map(
         farms: Farm polygons with farmer_id.
         counties: County boundaries with shapeName.
         issues: The issues table.
+        label: Optional description of the data batch for the title box.
 
     Returns:
         The folium map, zoomed to the farms.
@@ -276,7 +279,7 @@ def build_map(
     ).add_to(fmap)
 
     folium.LayerControl(collapsed=True).add_to(fmap)
-    fmap.get_root().html.add_child(Element(_title_html(counts)))
+    fmap.get_root().html.add_child(Element(_title_html(counts, label)))
     fmap.get_root().html.add_child(Element(_legend_html(counts)))
 
     minx, miny, maxx, maxy = layer.total_bounds

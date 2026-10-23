@@ -139,6 +139,14 @@ def test_pipeline_end_to_end(raw_dir: Path, tmp_path: Path):
     assert "Grace Wanjiru" not in page and "20000001" not in page
 
 
+def test_label_appears_in_summary_and_map(raw_dir: Path, tmp_path: Path):
+    map_file = tmp_path / "map.html"
+    paths = PipelinePaths.from_dirs(raw_dir, tmp_path / "out", map_file=map_file)
+    result = run_pipeline(paths, label="weekly batch, seed 202643")
+    assert "**Batch:** weekly batch, seed 202643" in result.summary
+    assert "Batch: weekly batch, seed 202643" in map_file.read_text(encoding="utf-8")
+
+
 def test_pipeline_without_ground_truth(raw_dir: Path, tmp_path: Path):
     (raw_dir / "planted_errors.csv").unlink()
     result = run_pipeline(PipelinePaths.from_dirs(raw_dir, tmp_path / "out"))

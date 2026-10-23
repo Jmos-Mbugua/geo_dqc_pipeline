@@ -292,6 +292,7 @@ def summarise(
     farms: gpd.GeoDataFrame,
     truth: pd.DataFrame | None = None,
     as_of: date = config.EXPORT_DATE,
+    label: str | None = None,
 ) -> str:
     """Write the Markdown summary report.
 
@@ -301,6 +302,7 @@ def summarise(
         farms: Farm polygons.
         truth: Ground truth, if available; adds the evaluation section.
         as_of: Export date the date check used.
+        label: Optional description of the data batch, shown under the title.
 
     Returns:
         The report as Markdown.
@@ -324,6 +326,7 @@ def summarise(
     lines = [
         "# Data quality summary",
         "",
+        *([f"**Batch:** {label}", ""] if label else []),
         f"{total} farmer registrations and {len(farms)} farm boundaries checked "
         f"against {len(CHECK_IDS)} checks. Registration dates are checked against the export date, {as_of.isoformat()}.",
         f"**{_pct(clean, total)} of records are clean**; {len(issues)} issues were found "
@@ -387,11 +390,12 @@ def _evaluation_section(issues: pd.DataFrame, truth: pd.DataFrame) -> list[str]:
 # --- Orchestration -------------------------------------------------------------
 
 
-def run_pipeline(paths: PipelinePaths) -> PipelineResult:
+def run_pipeline(paths: PipelinePaths, label: str | None = None) -> PipelineResult:
     """Run the whole pipeline: load, validate, check, report, evaluate, map.
 
     Args:
         paths: Input and output locations.
+        label: Optional description of the data batch for the summary and map.
 
     Returns:
         The issues, the summary text and the evaluation (None without ground truth).
@@ -437,14 +441,14 @@ def run_pipeline(paths: PipelinePaths) -> PipelineResult:
     else:
         logger.info("No ground truth file found; skipping evaluation")
 
-    summary = summarise(issues, registrations, farms, truth)
+    summary = summarise(issues, registrations, farms, truth, label=label)
     io.write_issues(issues, paths.out_dir / "issues.csv")
     io.write_text(summary, paths.out_dir / "summary.md")
     logger.info("Wrote %s and %s", paths.out_dir / "issues.csv", paths.out_dir / "summary.md")
 
     if paths.map_file is not None:
         logger.info("Step 6/6: building map")
-        io.write_map(build_map(registrations, farms, counties, issues), paths.map_file)
+        io.write_map(build_map(registrations, farms, counties, issues, label=label), paths.map_file)
         logger.info("Wrote %s (%.0f KB)", paths.map_file, paths.map_file.stat().st_size / 1024)
     else:
         logger.info("Step 6/6: map skipped")

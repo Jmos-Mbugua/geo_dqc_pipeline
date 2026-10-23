@@ -1,5 +1,8 @@
 # field-data-quality-kenya
 
+[![Tests](https://github.com/Jmos-Mbugua/geo_dqc_pipeline/actions/workflows/tests.yml/badge.svg)](https://github.com/Jmos-Mbugua/geo_dqc_pipeline/actions/workflows/tests.yml)
+[![Weekly survey run](https://github.com/Jmos-Mbugua/geo_dqc_pipeline/actions/workflows/scheduled_run.yml/badge.svg)](https://github.com/Jmos-Mbugua/geo_dqc_pipeline/actions/workflows/scheduled_run.yml)
+
 A data quality pipeline for agricultural field survey data from Kenya: the kind of farmer registrations, GPS points and farm boundary polygons that an agri-insurance company collects through ODK. It flags problems such as missing or duplicate records, GPS points outside Kenya or far from their declared location, invalid or self-intersecting polygons, implausible farm sizes and overlapping farms, then produces a clean dataset, a summary report and an interactive map for reviewing the flagged records.
 
 ## Run it
@@ -16,6 +19,8 @@ pytest                 # run the tests
 The pipeline runs nine checks: required fields, duplicate registrations, future dates, invalid GPS, GPS outside the registered county, invalid polygons, implausible farm area, registration point far from its farm, and overlapping farms. See [outputs/summary.md](outputs/summary.md) for the latest results, including how well the checks catch the planted errors. Thresholds are in [src/fdq/config.py](src/fdq/config.py).
 
 **Review map:** open [docs/index.html](docs/index.html) in a browser (or publish the `docs/` folder with GitHub Pages). Farms are coloured green (clean), orange (warnings only) or red (at least one error); click one to see its county, crop, area and issues. Popups never show names, national IDs or phone numbers.
+
+**Automation:** GitHub Actions runs the tests on every push and pull request. Every Monday (or on demand from the Actions tab) it also simulates a new survey batch (seed = ISO year and week), runs the pipeline, uploads the results as an artifact and commits the refreshed map, summary and issues list. The committed `data/raw/` dataset (seed 42) is never changed by these runs.
 
 ## Data
 
