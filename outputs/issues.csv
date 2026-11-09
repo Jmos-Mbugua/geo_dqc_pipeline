@@ -1,77 +1,77 @@
 ﻿farmer_id,county,enumerator_id,check_id,severity,message
-FRM-00032,Meru,ENUM-MRU-02,required_fields_missing,error,missing required field(s): registration_date
-FRM-00034,Uasin Gishu,ENUM-UGS-02,required_fields_missing,error,"missing required field(s): latitude, longitude"
-FRM-00099,Nakuru,ENUM-NKR-01,required_fields_missing,error,missing required field(s): national_id
-FRM-00105,Bungoma,ENUM-BGM-03,required_fields_missing,error,missing required field(s): farmer_name
-FRM-00109,Nakuru,ENUM-NKR-03,required_fields_missing,error,missing required field(s): phone
-FRM-00254,,ENUM-BGM-01,required_fields_missing,error,missing required field(s): county
-FRM-00267,Uasin Gishu,,required_fields_missing,error,missing required field(s): enumerator_id
-FRM-00341,Nakuru,ENUM-NKR-03,required_fields_missing,error,missing required field(s): crop
-FRM-00025,Meru,ENUM-MRU-01,duplicate_registration,error,same national_id (48372706) as FRM-00261; same phone (0778399592) as FRM-00261
-FRM-00204,Meru,ENUM-MRU-01,duplicate_registration,error,same national_id (73615436) as FRM-00256; same phone (0718363478) as FRM-00256
-FRM-00256,Meru,ENUM-MRU-01,duplicate_registration,error,same national_id (73615436) as FRM-00204; same phone (0718363478) as FRM-00204
-FRM-00261,Meru,ENUM-MRU-01,duplicate_registration,error,same national_id (48372706) as FRM-00025; same phone (0778399592) as FRM-00025
-FRM-00272,Bungoma,ENUM-BGM-02,duplicate_registration,error,same national_id (90487524) as FRM-00591; same phone (0700145592) as FRM-00591
-FRM-00288,Bungoma,ENUM-BGM-02,duplicate_registration,error,same national_id (28771088) as FRM-00541; same phone (0790087214) as FRM-00541
-FRM-00354,Uasin Gishu,ENUM-UGS-03,duplicate_registration,error,same national_id (80309056) as FRM-00413; same phone (0791592756) as FRM-00413
-FRM-00392,Nakuru,ENUM-NKR-01,duplicate_registration,error,same national_id (35257450) as FRM-00583; same phone (0767693032) as FRM-00583
-FRM-00413,Uasin Gishu,ENUM-UGS-02,duplicate_registration,error,same national_id (80309056) as FRM-00354; same phone (0791592756) as FRM-00354
-FRM-00541,Bungoma,ENUM-BGM-03,duplicate_registration,error,same national_id (28771088) as FRM-00288; same phone (0790087214) as FRM-00288
-FRM-00583,Nakuru,ENUM-NKR-03,duplicate_registration,error,same national_id (35257450) as FRM-00392; same phone (0767693032) as FRM-00392
-FRM-00591,Bungoma,ENUM-BGM-02,duplicate_registration,error,same national_id (90487524) as FRM-00272; same phone (0700145592) as FRM-00272
-FRM-00172,Meru,ENUM-MRU-01,future_registration_date,error,registration date 2062-03-07 is after the export date 2026-06-30
-FRM-00244,Kakamega,ENUM-KKG-03,future_registration_date,error,registration date 2027-03-14 is after the export date 2026-06-30
-FRM-00329,Uasin Gishu,ENUM-UGS-02,future_registration_date,error,registration date 2062-04-04 is after the export date 2026-06-30
-FRM-00378,Meru,ENUM-MRU-02,future_registration_date,error,registration date 2027-07-05 is after the export date 2026-06-30
-FRM-00469,Nakuru,ENUM-NKR-02,future_registration_date,error,registration date 2062-05-06 is after the export date 2026-06-30
-FRM-00066,Bungoma,ENUM-BGM-01,gps_invalid,error,"GPS is outside Kenya; latitude and longitude look swapped (lat 34.6594866, lon 0.4969423)"
-FRM-00076,Nakuru,ENUM-NKR-01,gps_invalid,error,"GPS is outside Kenya; latitude and longitude look swapped (lat 35.5289091, lon -0.3955011)"
-FRM-00237,Uasin Gishu,ENUM-UGS-02,gps_invalid,error,"GPS is outside Kenya; latitude and longitude look swapped (lat 35.3578806, lon 0.2509379)"
-FRM-00280,Meru,ENUM-MRU-01,gps_invalid,error,"GPS is 0,0 (no fix was captured) (lat 0.0, lon 0.0)"
-FRM-00397,Nakuru,ENUM-NKR-02,gps_invalid,error,"GPS is 0,0 (no fix was captured) (lat 0.0, lon 0.0)"
-FRM-00406,Kakamega,ENUM-KKG-02,gps_invalid,error,"GPS is outside Kenya; latitude and longitude look swapped (lat 34.7953157, lon 0.4464757)"
-FRM-00439,Bungoma,ENUM-BGM-01,gps_invalid,error,"GPS is 0,0 (no fix was captured) (lat 0.0, lon 0.0)"
-FRM-00467,Bungoma,ENUM-BGM-02,gps_invalid,error,"GPS is 0,0 (no fix was captured) (lat 0.0, lon 0.0)"
-FRM-00028,Nakuru,ENUM-NKR-01,gps_outside_county,error,"GPS point is in Meru, but the farmer is registered in Nakuru"
-FRM-00044,Bungoma,ENUM-BGM-02,gps_outside_county,error,"GPS point is in Uasin Gishu, but the farmer is registered in Bungoma"
-FRM-00074,Nakuru,ENUM-NKR-01,gps_outside_county,error,"GPS point is in Uasin Gishu, but the farmer is registered in Nakuru"
-FRM-00134,Uasin Gishu,ENUM-UGS-02,gps_outside_county,error,"GPS point is in Nakuru, but the farmer is registered in Uasin Gishu"
-FRM-00230,Meru,ENUM-MRU-02,gps_outside_county,error,"GPS point is in Uasin Gishu, but the farmer is registered in Meru"
-FRM-00452,Meru,ENUM-MRU-02,gps_outside_county,error,"GPS point is in Uasin Gishu, but the farmer is registered in Meru"
-FRM-00503,Meru,ENUM-MRU-01,gps_outside_county,error,"GPS point is in Bungoma, but the farmer is registered in Meru"
-FRM-00563,Kakamega,ENUM-KKG-03,gps_outside_county,error,"GPS point is in Nakuru, but the farmer is registered in Kakamega"
-FRM-00221,Kakamega,ENUM-KKG-01,polygon_invalid,error,invalid polygon: Self-intersection[35.0805322554491 0.88252498996088]
-FRM-00258,Meru,ENUM-MRU-01,polygon_invalid,error,invalid polygon: Self-intersection[37.5561368978632 0.25006499386983]
-FRM-00328,Bungoma,ENUM-BGM-02,polygon_invalid,error,invalid polygon: Self-intersection[34.474216685214 0.684118222803957]
-FRM-00339,Uasin Gishu,ENUM-UGS-02,polygon_invalid,error,invalid polygon: Self-intersection[35.2202126577385 0.760518432353791]
-FRM-00382,Bungoma,ENUM-BGM-03,polygon_invalid,error,invalid polygon: Self-intersection[34.6607164701539 1.00764356300961]
-FRM-00568,Nakuru,ENUM-NKR-03,polygon_invalid,error,invalid polygon: Self-intersection[35.812230133729 -0.402952119618458]
-FRM-00594,Bungoma,ENUM-BGM-01,polygon_invalid,error,invalid polygon: Self-intersection[34.6525319599975 0.732223701669203]
-FRM-00049,Meru,ENUM-MRU-01,farm_area_implausible,error,farm area 0.004 acres (16 sq m) is below the plausible minimum of 0.05 acres
-FRM-00136,Uasin Gishu,ENUM-UGS-01,farm_area_implausible,error,farm area 453.2 acres is above the plausible maximum of 20.0 acres
-FRM-00162,Bungoma,ENUM-BGM-03,farm_area_implausible,error,farm area 0.007 acres (27 sq m) is below the plausible minimum of 0.05 acres
-FRM-00206,Nakuru,ENUM-NKR-02,farm_area_implausible,error,farm area 0.010 acres (40 sq m) is below the plausible minimum of 0.05 acres
-FRM-00207,Nakuru,ENUM-NKR-01,farm_area_implausible,error,farm area 0.005 acres (20 sq m) is below the plausible minimum of 0.05 acres
-FRM-00284,Uasin Gishu,ENUM-UGS-03,farm_area_implausible,error,farm area 140.5 acres is above the plausible maximum of 20.0 acres
-FRM-00457,Meru,ENUM-MRU-03,farm_area_implausible,error,farm area 123.5 acres is above the plausible maximum of 20.0 acres
-FRM-00497,Bungoma,ENUM-BGM-03,farm_area_implausible,error,farm area 459.7 acres is above the plausible maximum of 20.0 acres
-FRM-00025,Meru,ENUM-MRU-01,farm_overlap,error,overlaps FRM-00261 by 54% of the smaller farm
-FRM-00046,Bungoma,ENUM-BGM-02,farm_overlap,error,overlaps FRM-00347 by 67% of the smaller farm
-FRM-00059,Uasin Gishu,ENUM-UGS-03,farm_overlap,error,overlaps FRM-00324 by 85% of the smaller farm
-FRM-00094,Uasin Gishu,ENUM-UGS-02,farm_overlap,error,overlaps FRM-00571 by 70% of the smaller farm
-FRM-00155,Kakamega,ENUM-KKG-02,farm_overlap,error,overlaps FRM-00336 by 88% of the smaller farm
-FRM-00204,Meru,ENUM-MRU-01,farm_overlap,error,overlaps FRM-00256 by 74% of the smaller farm
-FRM-00272,Bungoma,ENUM-BGM-02,farm_overlap,error,overlaps FRM-00591 by 82% of the smaller farm
-FRM-00288,Bungoma,ENUM-BGM-02,farm_overlap,error,overlaps FRM-00541 by 80% of the smaller farm
-FRM-00354,Uasin Gishu,ENUM-UGS-03,farm_overlap,error,overlaps FRM-00413 by 79% of the smaller farm
-FRM-00392,Nakuru,ENUM-NKR-01,farm_overlap,error,overlaps FRM-00583 by 63% of the smaller farm
-FRM-00261,Meru,ENUM-MRU-01,farm_overlap,error,overlaps FRM-00025 by 54% of the smaller farm
-FRM-00347,Bungoma,ENUM-BGM-02,farm_overlap,error,overlaps FRM-00046 by 67% of the smaller farm
-FRM-00324,Uasin Gishu,ENUM-UGS-02,farm_overlap,error,overlaps FRM-00059 by 85% of the smaller farm
-FRM-00571,Uasin Gishu,ENUM-UGS-03,farm_overlap,error,overlaps FRM-00094 by 70% of the smaller farm
-FRM-00336,Kakamega,ENUM-KKG-01,farm_overlap,error,overlaps FRM-00155 by 88% of the smaller farm
-FRM-00256,Meru,ENUM-MRU-01,farm_overlap,error,overlaps FRM-00204 by 74% of the smaller farm
-FRM-00591,Bungoma,ENUM-BGM-02,farm_overlap,error,overlaps FRM-00272 by 82% of the smaller farm
-FRM-00541,Bungoma,ENUM-BGM-03,farm_overlap,error,overlaps FRM-00288 by 80% of the smaller farm
-FRM-00413,Uasin Gishu,ENUM-UGS-02,farm_overlap,error,overlaps FRM-00354 by 79% of the smaller farm
-FRM-00583,Nakuru,ENUM-NKR-03,farm_overlap,error,overlaps FRM-00392 by 63% of the smaller farm
+FRM-00004,Uasin Gishu,ENUM-UGS-02,required_fields_missing,error,missing required field(s): farmer_name
+FRM-00100,Uasin Gishu,,required_fields_missing,error,missing required field(s): enumerator_id
+FRM-00106,,ENUM-BGM-01,required_fields_missing,error,missing required field(s): county
+FRM-00113,Nakuru,ENUM-NKR-01,required_fields_missing,error,"missing required field(s): latitude, longitude"
+FRM-00237,Kakamega,ENUM-KKG-03,required_fields_missing,error,missing required field(s): phone
+FRM-00317,Kakamega,ENUM-KKG-02,required_fields_missing,error,missing required field(s): registration_date
+FRM-00437,Bungoma,ENUM-BGM-01,required_fields_missing,error,missing required field(s): crop
+FRM-00543,Meru,ENUM-MRU-03,required_fields_missing,error,missing required field(s): national_id
+FRM-00010,Bungoma,ENUM-BGM-02,duplicate_registration,error,same national_id (18014708) as FRM-00154; same phone (0725468736) as FRM-00154
+FRM-00078,Bungoma,ENUM-BGM-02,duplicate_registration,error,same national_id (47752350) as FRM-00268; same phone (0731738040) as FRM-00268
+FRM-00109,Kakamega,ENUM-KKG-01,duplicate_registration,error,same national_id (63681348) as FRM-00506; same phone (0700486341) as FRM-00506
+FRM-00130,Kakamega,ENUM-KKG-01,duplicate_registration,error,same national_id (30767834) as FRM-00373; same phone (0707547165) as FRM-00373
+FRM-00154,Bungoma,ENUM-BGM-01,duplicate_registration,error,same national_id (18014708) as FRM-00010; same phone (0725468736) as FRM-00010
+FRM-00268,Bungoma,ENUM-BGM-03,duplicate_registration,error,same national_id (47752350) as FRM-00078; same phone (0731738040) as FRM-00078
+FRM-00293,Kakamega,ENUM-KKG-01,duplicate_registration,error,same national_id (73520737) as FRM-00401; same phone (0763238512) as FRM-00401
+FRM-00308,Bungoma,ENUM-BGM-02,duplicate_registration,error,same national_id (17755418) as FRM-00329; same phone (0720051939) as FRM-00329
+FRM-00329,Bungoma,ENUM-BGM-01,duplicate_registration,error,same national_id (17755418) as FRM-00308; same phone (0720051939) as FRM-00308
+FRM-00373,Kakamega,ENUM-KKG-01,duplicate_registration,error,same national_id (30767834) as FRM-00130; same phone (0707547165) as FRM-00130
+FRM-00401,Kakamega,ENUM-KKG-03,duplicate_registration,error,same national_id (73520737) as FRM-00293; same phone (0763238512) as FRM-00293
+FRM-00506,Kakamega,ENUM-KKG-03,duplicate_registration,error,same national_id (63681348) as FRM-00109; same phone (0700486341) as FRM-00109
+FRM-00076,Uasin Gishu,ENUM-UGS-03,future_registration_date,error,registration date 2062-02-16 is after the export date 2026-06-30
+FRM-00277,Nakuru,ENUM-NKR-02,future_registration_date,error,registration date 2062-03-26 is after the export date 2026-06-30
+FRM-00303,Meru,ENUM-MRU-01,future_registration_date,error,registration date 2027-07-28 is after the export date 2026-06-30
+FRM-00451,Bungoma,ENUM-BGM-02,future_registration_date,error,registration date 2027-03-29 is after the export date 2026-06-30
+FRM-00495,Uasin Gishu,ENUM-UGS-02,future_registration_date,error,registration date 2062-05-09 is after the export date 2026-06-30
+FRM-00127,Kakamega,ENUM-KKG-03,gps_invalid,error,"GPS is 0,0 (no fix was captured) (lat 0.0, lon 0.0)"
+FRM-00137,Kakamega,ENUM-KKG-01,gps_invalid,error,"GPS is 0,0 (no fix was captured) (lat 0.0, lon 0.0)"
+FRM-00187,Kakamega,ENUM-KKG-02,gps_invalid,error,"GPS is 0,0 (no fix was captured) (lat 0.0, lon 0.0)"
+FRM-00259,Nakuru,ENUM-NKR-03,gps_invalid,error,"GPS is outside Kenya; latitude and longitude look swapped (lat 36.0770554, lon -0.4985482)"
+FRM-00292,Nakuru,ENUM-NKR-03,gps_invalid,error,"GPS is outside Kenya; latitude and longitude look swapped (lat 36.3561487, lon -0.4737618)"
+FRM-00556,Kakamega,ENUM-KKG-02,gps_invalid,error,"GPS is 0,0 (no fix was captured) (lat 0.0, lon 0.0)"
+FRM-00563,Meru,ENUM-MRU-02,gps_invalid,error,"GPS is outside Kenya; latitude and longitude look swapped (lat 37.4443065, lon 0.0065458)"
+FRM-00568,Bungoma,ENUM-BGM-03,gps_invalid,error,"GPS is outside Kenya; latitude and longitude look swapped (lat 34.7422483, lon 0.745089)"
+FRM-00251,Meru,ENUM-MRU-01,gps_outside_county,error,"GPS point is in Kakamega, but the farmer is registered in Meru"
+FRM-00315,Uasin Gishu,ENUM-UGS-01,gps_outside_county,error,"GPS point is in Meru, but the farmer is registered in Uasin Gishu"
+FRM-00394,Meru,ENUM-MRU-01,gps_outside_county,error,"GPS point is in Uasin Gishu, but the farmer is registered in Meru"
+FRM-00411,Kakamega,ENUM-KKG-03,gps_outside_county,error,"GPS point is in Uasin Gishu, but the farmer is registered in Kakamega"
+FRM-00466,Meru,ENUM-MRU-02,gps_outside_county,error,"GPS point is in Bungoma, but the farmer is registered in Meru"
+FRM-00474,Kakamega,ENUM-KKG-02,gps_outside_county,error,"GPS point is in Uasin Gishu, but the farmer is registered in Kakamega"
+FRM-00588,Uasin Gishu,ENUM-UGS-02,gps_outside_county,error,"GPS point is in Meru, but the farmer is registered in Uasin Gishu"
+FRM-00595,Kakamega,ENUM-KKG-03,gps_outside_county,error,"GPS point is in Uasin Gishu, but the farmer is registered in Kakamega"
+FRM-00036,Kakamega,ENUM-KKG-03,polygon_invalid,error,invalid polygon: Self-intersection[34.509213464924 0.447101669605147]
+FRM-00052,Nakuru,ENUM-NKR-01,polygon_invalid,error,invalid polygon: Self-intersection[36.0240978647392 -0.0473780886657401]
+FRM-00090,Uasin Gishu,ENUM-UGS-03,polygon_invalid,error,invalid polygon: Self-intersection[35.3879017229101 0.487925091083966]
+FRM-00138,Nakuru,ENUM-NKR-01,polygon_invalid,error,invalid polygon: Self-intersection[36.0392212363326 -0.16679346219163]
+FRM-00325,Bungoma,ENUM-BGM-02,polygon_invalid,error,invalid polygon: Self-intersection[34.5612004799684 0.659689092832723]
+FRM-00448,Nakuru,ENUM-NKR-01,polygon_invalid,error,invalid polygon: Self-intersection[35.8000938056855 -0.13201672149528]
+FRM-00467,Nakuru,ENUM-NKR-02,polygon_invalid,error,invalid polygon: Self-intersection[35.9543507793785 -0.199811903964561]
+FRM-00024,Uasin Gishu,ENUM-UGS-02,farm_area_implausible,error,farm area 395.8 acres is above the plausible maximum of 20.0 acres
+FRM-00042,Bungoma,ENUM-BGM-01,farm_area_implausible,error,farm area 0.006 acres (25 sq m) is below the plausible minimum of 0.05 acres
+FRM-00179,Kakamega,ENUM-KKG-01,farm_area_implausible,error,farm area 487.1 acres is above the plausible maximum of 20.0 acres
+FRM-00267,Uasin Gishu,ENUM-UGS-02,farm_area_implausible,error,farm area 229.4 acres is above the plausible maximum of 20.0 acres
+FRM-00473,Meru,ENUM-MRU-03,farm_area_implausible,error,farm area 380.9 acres is above the plausible maximum of 20.0 acres
+FRM-00480,Uasin Gishu,ENUM-UGS-02,farm_area_implausible,error,farm area 0.005 acres (22 sq m) is below the plausible minimum of 0.05 acres
+FRM-00514,Uasin Gishu,ENUM-UGS-02,farm_area_implausible,error,farm area 0.006 acres (25 sq m) is below the plausible minimum of 0.05 acres
+FRM-00529,Nakuru,ENUM-NKR-03,farm_area_implausible,error,farm area 0.006 acres (24 sq m) is below the plausible minimum of 0.05 acres
+FRM-00006,Uasin Gishu,ENUM-UGS-03,farm_overlap,error,overlaps FRM-00168 by 84% of the smaller farm
+FRM-00010,Bungoma,ENUM-BGM-02,farm_overlap,error,overlaps FRM-00154 by 60% of the smaller farm
+FRM-00078,Bungoma,ENUM-BGM-02,farm_overlap,error,overlaps FRM-00268 by 78% of the smaller farm
+FRM-00109,Kakamega,ENUM-KKG-01,farm_overlap,error,overlaps FRM-00506 by 93% of the smaller farm
+FRM-00130,Kakamega,ENUM-KKG-01,farm_overlap,error,overlaps FRM-00373 by 90% of the smaller farm
+FRM-00135,Bungoma,ENUM-BGM-01,farm_overlap,error,overlaps FRM-00346 by 68% of the smaller farm
+FRM-00164,Nakuru,ENUM-NKR-02,farm_overlap,error,overlaps FRM-00457 by 91% of the smaller farm
+FRM-00178,Meru,ENUM-MRU-03,farm_overlap,error,overlaps FRM-00587 by 71% of the smaller farm
+FRM-00293,Kakamega,ENUM-KKG-01,farm_overlap,error,overlaps FRM-00401 by 80% of the smaller farm
+FRM-00308,Bungoma,ENUM-BGM-02,farm_overlap,error,overlaps FRM-00329 by 66% of the smaller farm
+FRM-00168,Uasin Gishu,ENUM-UGS-03,farm_overlap,error,overlaps FRM-00006 by 84% of the smaller farm
+FRM-00154,Bungoma,ENUM-BGM-01,farm_overlap,error,overlaps FRM-00010 by 60% of the smaller farm
+FRM-00268,Bungoma,ENUM-BGM-03,farm_overlap,error,overlaps FRM-00078 by 78% of the smaller farm
+FRM-00506,Kakamega,ENUM-KKG-03,farm_overlap,error,overlaps FRM-00109 by 93% of the smaller farm
+FRM-00373,Kakamega,ENUM-KKG-01,farm_overlap,error,overlaps FRM-00130 by 90% of the smaller farm
+FRM-00346,Bungoma,ENUM-BGM-02,farm_overlap,error,overlaps FRM-00135 by 68% of the smaller farm
+FRM-00457,Nakuru,ENUM-NKR-03,farm_overlap,error,overlaps FRM-00164 by 91% of the smaller farm
+FRM-00587,Meru,ENUM-MRU-02,farm_overlap,error,overlaps FRM-00178 by 71% of the smaller farm
+FRM-00401,Kakamega,ENUM-KKG-03,farm_overlap,error,overlaps FRM-00293 by 80% of the smaller farm
+FRM-00329,Bungoma,ENUM-BGM-01,farm_overlap,error,overlaps FRM-00308 by 66% of the smaller farm

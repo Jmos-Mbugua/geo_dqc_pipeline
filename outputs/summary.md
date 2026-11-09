@@ -1,6 +1,6 @@
 # Data quality summary
 
-**Batch:** weekly batch, seed 202645, run 2026-11-02
+**Batch:** weekly batch, seed 202646, run 2026-11-09
 
 600 farmer registrations and 600 farm boundaries checked against 9 checks. Registration dates are checked against the export date, 2026-06-30.
 **89.3% of records are clean**; 76 issues were found on 64 records. Every issue is listed in `issues.csv`.
@@ -32,27 +32,27 @@
 
 | County | Records | Flagged records | Share flagged | Issues | Errors | Most common issue |
 |:---|---:|---:|---:|---:|---:|:---|
-| Bungoma | 127 | 16 | 12.6% | 20 | 20 | farm_overlap (6) |
-| Uasin Gishu | 112 | 14 | 12.5% | 16 | 16 | farm_overlap (6) |
-| Nakuru | 116 | 13 | 11.2% | 15 | 15 | required_fields_missing (3) |
-| Meru | 126 | 14 | 11.1% | 18 | 18 | duplicate_registration (4) |
-| Kakamega | 118 | 6 | 5.1% | 6 | 6 | farm_overlap (2) |
+| Kakamega | 125 | 17 | 13.6% | 23 | 23 | duplicate_registration (6) |
+| Uasin Gishu | 118 | 13 | 11.0% | 13 | 13 | farm_area_implausible (4) |
+| Bungoma | 121 | 13 | 10.7% | 19 | 19 | farm_overlap (8) |
+| Nakuru | 115 | 11 | 9.6% | 11 | 11 | polygon_invalid (4) |
+| Meru | 120 | 9 | 7.5% | 9 | 9 | gps_outside_county (3) |
 | (blank) | 1 | 1 | 100.0% | 1 | 1 | required_fields_missing (1) |
 
 ## Issues by enumerator (top 10 by share flagged)
 
 | Enumerator | Records | Flagged records | Share flagged | Issues | Errors | Most common issue |
 |:---|---:|---:|---:|---:|---:|:---|
-| ENUM-UGS-02 | 43 | 8 | 18.6% | 9 | 9 | farm_overlap (3) |
-| ENUM-MRU-01 | 49 | 9 | 18.4% | 13 | 13 | duplicate_registration (4) |
-| ENUM-BGM-02 | 50 | 8 | 16.0% | 11 | 11 | farm_overlap (5) |
-| ENUM-NKR-01 | 43 | 6 | 14.0% | 7 | 7 | gps_outside_county (2) |
-| ENUM-BGM-03 | 38 | 5 | 13.2% | 6 | 6 | farm_area_implausible (2) |
-| ENUM-UGS-03 | 31 | 4 | 12.9% | 5 | 5 | farm_overlap (3) |
-| ENUM-MRU-02 | 39 | 4 | 10.3% | 4 | 4 | gps_outside_county (2) |
-| ENUM-BGM-01 | 40 | 4 | 10.0% | 4 | 4 | gps_invalid (2) |
-| ENUM-NKR-03 | 40 | 4 | 10.0% | 5 | 5 | required_fields_missing (2) |
-| ENUM-NKR-02 | 33 | 3 | 9.1% | 3 | 3 | future_registration_date (1) |
+| ENUM-BGM-01 | 31 | 6 | 19.4% | 8 | 8 | farm_overlap (3) |
+| ENUM-KKG-01 | 31 | 6 | 19.4% | 10 | 10 | duplicate_registration (4) |
+| ENUM-UGS-02 | 44 | 7 | 15.9% | 7 | 7 | farm_area_implausible (4) |
+| ENUM-KKG-03 | 48 | 7 | 14.6% | 9 | 9 | duplicate_registration (2) |
+| ENUM-BGM-02 | 52 | 6 | 11.5% | 9 | 9 | farm_overlap (4) |
+| ENUM-MRU-02 | 26 | 3 | 11.5% | 3 | 3 | gps_invalid (1) |
+| ENUM-NKR-01 | 37 | 4 | 10.8% | 4 | 4 | polygon_invalid (3) |
+| ENUM-UGS-03 | 39 | 4 | 10.3% | 4 | 4 | farm_overlap (2) |
+| ENUM-NKR-03 | 41 | 4 | 9.8% | 4 | 4 | gps_invalid (2) |
+| ENUM-KKG-02 | 46 | 4 | 8.7% | 4 | 4 | gps_invalid (2) |
 
 ## Evaluation against planted errors
 
